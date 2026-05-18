@@ -21,6 +21,7 @@
 
     <modules>
         <module>infrastructure/discovery-server</module>
+        <module>infrastructure/api-gateway</module>
     </modules>
 
     <dependencyManagement>

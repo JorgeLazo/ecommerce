@@ -18,8 +18,10 @@ Centralized Configuration
 Microservices
    ├── User Service
    ├── Product Service
+   ├── Order Service
+   │     ├── Feign → User Service
+   │     └── Feign → Product Service
    ├── Cart Service (planned)
-   ├── Order Service (planned)
    ├── Payment Service (planned)
    └── Notification Service (planned)
 ```
@@ -38,8 +40,8 @@ ecommerce-microservices/
  ├── services/
  │   ├── user-service
  │   ├── product-service
+ │   ├── order-service
  │   ├── cart-service (planned)
- │   ├── order-service (planned)
  │   ├── payment-service (planned)
  │   └── notification-service (planned)
  │
@@ -62,6 +64,7 @@ ecommerce-microservices/
 | API Gateway | 8080 |
 | User Service | 8081 |
 | Product Service | 8082 |
+| Order Service | 8083 |
 
 ---
 
@@ -77,6 +80,12 @@ GET http://localhost:8080/user-service/users
 
 ```http
 GET http://localhost:8080/product-service/products
+```
+
+### Orders (Distributed Checkout)
+
+```http
+GET http://localhost:8080/order-service/orders/checkout
 ```
 
 ### Config Server
@@ -104,6 +113,7 @@ mvn spring-boot:run -pl infrastructure/discovery-server
 mvn spring-boot:run -pl infrastructure/config-server
 mvn spring-boot:run -pl services/user-service
 mvn spring-boot:run -pl services/product-service
+mvn spring-boot:run -pl services/order-service
 mvn spring-boot:run -pl infrastructure/api-gateway
 ```
 
@@ -118,6 +128,7 @@ mvn spring-boot:run -pl infrastructure/api-gateway
 - Eureka Discovery Server
 - Spring Config Server
 - Spring Data JPA
+- Spring Cloud OpenFeign
 - H2 Database
 - Maven Monorepo
 - MVC Architecture
@@ -142,11 +153,12 @@ mvn spring-boot:run -pl infrastructure/api-gateway
 - [x] Config Server
 - [x] User Service
 - [x] Product Service
+- [x] Order Service
 - [x] JPA Persistence
 - [x] Sample Catalog Bootstrap
+- [x] Feign Client Integration
+- [x] Distributed Checkout Workflow
 - [ ] Authentication Server
-- [ ] Order Workflow
-- [ ] Feign Clients
 - [ ] Kafka Integration
 - [ ] Observability
 - [ ] Docker Compose
@@ -159,8 +171,26 @@ mvn spring-boot:run -pl infrastructure/api-gateway
 - Dynamic Gateway Routing
 - Centralized Configuration Management
 - Persistent Product Catalog
+- Declarative Inter-service Communication
+- Distributed Checkout Orchestration
 - Distributed Service Registration
 - Enterprise Monorepo Architecture
+
+---
+
+## Distributed Workflow Example
+
+```plaintext
+Client Request
+   ↓
+API Gateway
+   ↓
+Order Service
+   ├── Fetch Users → User Service
+   └── Fetch Products → Product Service
+   ↓
+Aggregated Checkout Response
+```
 
 ---
 
@@ -171,6 +201,7 @@ This project demonstrates:
 - Enterprise Java Architecture
 - Cloud-native Spring Ecosystem
 - Distributed Systems Design
+- Declarative Service Communication
 - Modular Microservices Development
 - Production-grade Backend Engineering Practices
 

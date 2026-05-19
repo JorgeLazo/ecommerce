@@ -24,6 +24,7 @@
         <module>infrastructure/api-gateway</module>
         <module>services/user-service</module>
         <module>infrastructure/config-server</module>
+        <module>services/product-service</module>
     </modules>
 
     <dependencyManagement>

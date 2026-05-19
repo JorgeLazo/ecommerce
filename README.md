@@ -1,24 +1,6 @@
 # Spring Boot E-Commerce Microservices
 
-Enterprise-grade e-commerce platform built with modern Java microservices architecture.
-
----
-
-## Tech Stack
-
-- Java 21
-- Spring Boot 3.5
-- Spring Cloud
-- Spring Cloud Gateway
-- Eureka Discovery Server
-- Spring Config Server
-- Spring Data JPA
-- MySQL
-- Docker
-- Maven Monorepo
-- OAuth2 / JWT (planned)
-- Kafka Event-Driven Architecture (planned)
-- Observability Stack (planned)
+Enterprise-grade e-commerce platform built with modern Java microservices architecture using **Spring Boot 3.5**, **Spring Cloud**, and **modular monorepo design**.
 
 ---
 
@@ -29,15 +11,17 @@ Client
    ↓
 API Gateway
    ↓
-Service Discovery
+Service Discovery (Eureka)
+   ↓
+Centralized Configuration
    ↓
 Microservices
    ├── User Service
    ├── Product Service
-   ├── Cart Service
-   ├── Order Service
-   ├── Payment Service
-   └── Notification Service
+   ├── Cart Service (planned)
+   ├── Order Service (planned)
+   ├── Payment Service (planned)
+   └── Notification Service (planned)
 ```
 
 ---
@@ -54,32 +38,52 @@ ecommerce-microservices/
  ├── services/
  │   ├── user-service
  │   ├── product-service
- │   ├── cart-service
- │   ├── order-service
- │   ├── payment-service
- │   └── notification-service
+ │   ├── cart-service (planned)
+ │   ├── order-service (planned)
+ │   ├── payment-service (planned)
+ │   └── notification-service (planned)
  │
  ├── shared/
  │   └── common-core
  │
- └── docker/
+ ├── pom.xml
+ ├── README.md
+ └── .gitignore
 ```
 
 ---
 
-## Current Progress
+## Services
 
-- [x] Monorepo bootstrap
-- [ ] Discovery Server
-- [ ] API Gateway
-- [ ] User Service
-- [ ] Routing
-- [ ] Docker Compose
-- [ ] Authentication Server
-- [ ] Product Service
-- [ ] Order Workflow
-- [ ] Kafka Integration
-- [ ] Observability
+| Service | Port |
+|---------|------|
+| Eureka Discovery Server | 8761 |
+| Config Server | 8888 |
+| API Gateway | 8080 |
+| User Service | 8081 |
+| Product Service | 8082 |
+
+---
+
+## Test Endpoints
+
+### Users
+
+```http
+GET http://localhost:8080/user-service/users
+```
+
+### Products
+
+```http
+GET http://localhost:8080/product-service/products
+```
+
+### Config Server
+
+```http
+GET http://localhost:8888/user-service/default
+```
 
 ---
 
@@ -91,15 +95,84 @@ mvn clean install
 
 ---
 
+## Run Locally
+
+Start services in order:
+
+```bash
+mvn spring-boot:run -pl infrastructure/discovery-server
+mvn spring-boot:run -pl infrastructure/config-server
+mvn spring-boot:run -pl services/user-service
+mvn spring-boot:run -pl services/product-service
+mvn spring-boot:run -pl infrastructure/api-gateway
+```
+
+---
+
+## Tech Stack
+
+- Java 21
+- Spring Boot 3.5
+- Spring Cloud 2025
+- Spring Cloud Gateway
+- Eureka Discovery Server
+- Spring Config Server
+- Spring Data JPA
+- H2 Database
+- Maven Monorepo
+- MVC Architecture
+
+### Planned
+
+- OAuth2 / JWT Security
+- Kafka Event-Driven Architecture
+- Observability Stack
+- Distributed Tracing
+- Docker Deployment
+- MySQL / PostgreSQL Migration
+
+---
+
+## Current Progress
+
+- [x] Monorepo bootstrap
+- [x] Eureka Discovery Server
+- [x] API Gateway
+- [x] Dynamic Routing
+- [x] Config Server
+- [x] User Service
+- [x] Product Service
+- [x] JPA Persistence
+- [x] Sample Catalog Bootstrap
+- [ ] Authentication Server
+- [ ] Order Workflow
+- [ ] Feign Clients
+- [ ] Kafka Integration
+- [ ] Observability
+- [ ] Docker Compose
+
+---
+
+## Features Implemented
+
+- Service Discovery
+- Dynamic Gateway Routing
+- Centralized Configuration Management
+- Persistent Product Catalog
+- Distributed Service Registration
+- Enterprise Monorepo Architecture
+
+---
+
 ## Goals
 
 This project demonstrates:
 
-- Enterprise Java architecture
-- Modular monorepo design
-- Distributed systems patterns
-- Cloud-native Spring ecosystem
-- Production-grade scalability practices
+- Enterprise Java Architecture
+- Cloud-native Spring Ecosystem
+- Distributed Systems Design
+- Modular Microservices Development
+- Production-grade Backend Engineering Practices
 
 ---
 
@@ -107,7 +180,7 @@ This project demonstrates:
 
 **Jorge Lazo**
 
-Software Engineer focused on:
+Backend Engineer focused on:
 
 - Java / Spring Ecosystem
 - Microservices Architecture

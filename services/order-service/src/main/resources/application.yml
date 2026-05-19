@@ -5,6 +5,11 @@ spring:
   application:
     name: order-service
 
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+
 eureka:
   client:
     service-url:

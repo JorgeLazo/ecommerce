@@ -1,7 +1,6 @@
 package com.jorgelazo.order.controller;
 
-import com.jorgelazo.order.client.ProductClient;
-import com.jorgelazo.order.client.UserClient;
+import com.jorgelazo.order.service.CheckoutService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,24 +9,16 @@ import java.util.Map;
 @RestController
 public class OrderController {
 
-    private final UserClient userClient;
-    private final ProductClient productClient;
+    private final CheckoutService service;
 
     public OrderController(
-            UserClient userClient,
-            ProductClient productClient
+            CheckoutService service
     ) {
-        this.userClient = userClient;
-        this.productClient = productClient;
+        this.service = service;
     }
 
     @GetMapping("/orders/checkout")
     public Map<String, Object> checkout() {
-
-        return Map.of(
-                "users", userClient.getUsers(),
-                "products", productClient.getProducts(),
-                "status", "checkout-ready"
-        );
+        return service.checkout();
     }
 }

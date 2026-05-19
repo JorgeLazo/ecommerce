@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@FeignClient(name = "product-service")
+@FeignClient(
+        name = "product-service",
+        fallback = ProductFallback.class
+)
 public interface ProductClient {
 
     @GetMapping("/products")
